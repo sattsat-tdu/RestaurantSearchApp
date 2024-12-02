@@ -10,9 +10,23 @@ import SwiftUI
 
 @main
 struct RestaurantSearchAppApp: App {
+    
+    @StateObject var locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                switch locationManager.authorizationStatus {
+                case .notDetermined, .restricted, .denied:
+                    ContentView()
+                case .authorizedWhenInUse, .authorizedAlways:
+                    HomeView()
+                @unknown default:
+                    fatalError("予期せぬ状態遷移")
+                }
+            }
+            .environmentObject(locationManager)
+            .preferredColorScheme(.light)
         }
     }
 }

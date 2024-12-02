@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var manager: LocationManager
+    
     var body: some View {
         VStack(spacing: 24) {
             Spacer()
@@ -29,11 +32,15 @@ struct ContentView: View {
 
             Spacer()
             
+            if manager.authorizationStatus != .notDetermined {
+                Text("位置情報取得に許可する必要があります。\nもう一度「始める」を押して許可してください")
+                    .foregroundStyle(.red)
+            }
             
             CapsuleButton(
                 text: "始める",
                 onClicked: {
-                    
+                    manager.requestPermission()
                 })
         }
         .padding()
@@ -42,4 +49,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(LocationManager())
 }
