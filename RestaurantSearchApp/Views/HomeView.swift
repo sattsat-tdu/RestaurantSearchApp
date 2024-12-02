@@ -9,14 +9,8 @@
 import SwiftUI
 import MapKit
 
-extension CLLocationCoordinate2D {
-    static let tokyoStation = CLLocationCoordinate2D(latitude: 35.681271031625556, longitude: 139.76710334029735)
-}
-
 
 struct HomeView: View {
-    
-    @EnvironmentObject var manager: LocationManager
     
     @State private var position: MapCameraPosition =
         .userLocation(fallback: .automatic)
