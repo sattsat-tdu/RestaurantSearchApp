@@ -10,11 +10,31 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 24) {
+            Spacer()
+            
+            Image(systemName: "location.app.fill")
+                .resizable()
+                .scaledToFit()
+                .foregroundStyle(.orange)
+                .frame(height: 80)
+            
+            VStack {
+                Text("レストラン検索アプリ")
+                    .font(.title2.bold())
+                
+                Text("素敵なグルメライフを楽しみましょう")
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+            
+            
+            CapsuleButton(
+                text: "始める",
+                onClicked: {
+                    
+                })
         }
         .padding()
     }
