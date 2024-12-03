@@ -28,16 +28,9 @@ struct HomeView: View {
                         position = .userLocation(fallback: .automatic)
                     }
             }
-            
-            VStack {
-                SearchBar(searchText: $searchText)
-                    .opacity(isInteracting ? 0.2 : 1)
-                    .focused($isFocus)
-                    .submitLabel(.search)
-                
-                Spacer()
-            }
-            .padding()
+            SearchView()
+                .opacity(isInteracting ? 0.2 : 1)
+                .focused($isFocus)
         }
     }
     
