@@ -19,9 +19,7 @@ struct SearchView: View {
             SearchBar(searchText: $viewModel.searchText)
                 .submitLabel(.search)
                 .onSubmit {
-                    viewModel.fetchRestauarnats()
-                    let location = manager.getUserLocation()
-                    print(location ?? "nil")
+                    print("ここにkeyword検索処理")
                 }
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
@@ -54,7 +52,11 @@ struct SearchView: View {
     
     private var searchNearMeButton: some View {
         Button(action: {
-            
+            let location = manager.getUserLocation()
+            viewModel.fetchNearMeRestaurants(
+                lat: location?.lat,
+                lng: location?.lng
+            )
         }, label: {
             Label("現在地から検索", systemImage: "magnifyingglass")
                 .fontWeight(.semibold)
@@ -85,13 +87,11 @@ struct SearchView: View {
 
                 HStack {
                     ForEach(SearchRange.allCases, id: \.self) { range in
-//                        Spacer()
                         Text( "\(range.toMeters)m")
                             .font(.caption)
                             .offset(y: -25)
                             .frame(maxWidth: .infinity)
                     }
-//                    Spacer()    //等間隔に配置
                 }
             }
         }

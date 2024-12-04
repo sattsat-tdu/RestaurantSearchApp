@@ -34,13 +34,21 @@ final class SearchViewModel: ObservableObject {
     @Published var selectedRange: SearchRange = .d1000
     
     @MainActor
-    func fetchRestauarnats() {
+    func fetchNearMeRestaurants(lat: Double?, lng: Double?) {
         Task {
-            let result = await GourmetAPIManager.shared.fetchRestaurants()
+            let result = await GourmetAPIManager.shared.fetchRestaurants(
+                searchQuery: SearchQuery(
+                    lat: lat,
+                    lng: lng,
+                    range: selectedRange.rawValue
+                )
+            )
             switch result {
-            case .success(let success):
+            case .success(let shopsResponse):
                 print("成功!")
-                print(success)
+                for shop in shopsResponse.results.shop {
+                    print(shop.name)
+                }
             case .failure(let failure):
                 print("失敗！\(failure.localizedDescription)")
             }

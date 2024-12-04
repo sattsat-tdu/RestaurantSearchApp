@@ -35,11 +35,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     // ユーザーの現在位置を緯度と経度で返す
-    func getUserLocation() -> (latitude: Double, longitude: Double)? {
+    func getUserLocation() -> (lat: Double, lng: Double)? {
         guard let location = locationManager.location else {
             return nil
         }
-        return (latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        return (lat: location.coordinate.latitude, lng: location.coordinate.longitude)
     }
     
     //権限を監視
