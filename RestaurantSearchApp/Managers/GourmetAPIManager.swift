@@ -16,22 +16,41 @@ class GourmetAPIManager {
     private let apiKey = "554e1b6ef0256401"
     private let baseUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
     
-    func fetchRestaurants() async -> Result<String, Error> {
-        // URL作成
+    func fetchRestaurants(searchQuery: SearchQuery) async -> Result<ShopsResponse, APIError> {
+
         guard var urlComponents = URLComponents(string: baseUrl) else {
             return .failure(APIError.invalidURL)
         }
         
-        // パラメータ設定
-        urlComponents.queryItems = [
+        var queryItems = [
             URLQueryItem(name: "key", value: apiKey),
-            URLQueryItem(name: "format", value: "json"), // JSON形式で取得
-            URLQueryItem(name: "keyword", value: "レストラン") // 固定のキーワード
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "keyword", value: "レストラン") // レストランアプリであるため固定のキーワード
         ]
+        
+        if let keyword = searchQuery.keyword {
+            queryItems.append(URLQueryItem(name: "keyword", value: keyword))
+        }
+        
+        if let lat = searchQuery.lat {
+            queryItems.append(URLQueryItem(name: "lat", value: String(lat)))
+        }
+        
+        if let lng = searchQuery.lng {
+            queryItems.append(URLQueryItem(name: "lng", value: String(lng)))
+        }
+        
+        if let range = searchQuery.range {
+            queryItems.append(URLQueryItem(name: "range", value: "\(range)"))
+        }
+        
+        urlComponents.queryItems = queryItems
         
         guard let url = urlComponents.url else {
             return .failure(APIError.invalidURL)
         }
+        
+        print("リクエスト URL: \(url.absoluteString)")
         
         // リクエストを作成
         var request = URLRequest(url: url)
@@ -41,21 +60,23 @@ class GourmetAPIManager {
             // API通信
             let (data, _) = try await URLSession.shared.data(for: request)
             
-            // JSONを文字列に変換してそのまま返す
-            if let jsonString = String(data: data, encoding: .utf8) {
-                return .success(jsonString)
-            } else {
-                return .failure(APIError.invalidResponse)
+            do {
+                let fetchedShopsResponse = try JSONDecoder().decode(ShopsResponse.self, from: data)
+                return .success(fetchedShopsResponse)
+            } catch {
+                return .failure(APIError.parseError)
             }
         } catch {
             // エラー発生時
-            return .failure(error)
+            return .failure(.urlSessionError)
         }
     }
 }
 
 // APIエラー型
 enum APIError: Error {
+    case parseError
+    case urlSessionError
     case invalidURL
     case invalidResponse
 }
