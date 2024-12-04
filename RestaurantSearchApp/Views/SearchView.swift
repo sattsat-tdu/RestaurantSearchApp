@@ -20,6 +20,8 @@ struct SearchView: View {
                 .submitLabel(.search)
                 .onSubmit {
                     viewModel.fetchRestauarnats()
+                    let location = manager.getUserLocation()
+                    print(location ?? "nil")
                 }
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {

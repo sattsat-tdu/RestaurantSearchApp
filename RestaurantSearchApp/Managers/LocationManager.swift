@@ -34,6 +34,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    // ユーザーの現在位置を緯度と経度で返す
+    func getUserLocation() -> (latitude: Double, longitude: Double)? {
+        guard let location = locationManager.location else {
+            return nil
+        }
+        return (latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+    }
+    
     //権限を監視
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         self.authorizationStatus = manager.authorizationStatus
