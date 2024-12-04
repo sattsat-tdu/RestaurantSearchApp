@@ -7,14 +7,18 @@
 //
 
 struct ShopsResponse: Decodable {
-    let shops: [Shop]
+    let results: Results
+}
+
+struct Results: Decodable {
+    let shop: [Shop]
 }
 
 struct Shop: Decodable {
     let id: String
     let name: String
     let logo_image: String
-    let adress: String
+    let address: String
     let station_name: String
     let lat: Double
     let lng: Double
