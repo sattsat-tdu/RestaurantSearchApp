@@ -44,9 +44,9 @@ final class SearchViewModel: ObservableObject {
                 )
             )
             switch result {
-            case .success(let shopsResponse):
-                print("成功!")
-                for shop in shopsResponse.results.shop {
+            case .success(let response):
+                print("成功!: \(response.results.results_available)件ヒットしました！")
+                for shop in response.results.shop {
                     print(shop.name)
                 }
             case .failure(let failure):

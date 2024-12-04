@@ -11,6 +11,7 @@ struct ShopsResponse: Decodable {
 }
 
 struct Results: Decodable {
+    let results_available: Int
     let shop: [Shop]
 }
 
