@@ -15,20 +15,19 @@ struct HomeView: View {
     @State private var position: MapCameraPosition =
         .userLocation(fallback: .automatic)
     @State private var isInteracting = false
-    @State private var searchText: String = ""
     @FocusState var isFocus: Bool
     
     var body: some View {
         ZStack {
+            
+            mapView
             if isFocus {
-                Color.gray.edgesIgnoringSafeArea(.all)
-            } else {
-                mapView
-                    .onAppear {
-                        position = .userLocation(fallback: .automatic)
+                Color.black.opacity(0.7).edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isFocus = false // 背景タップでキーボードを閉じる
                     }
             }
-            SearchView()
+            SearchView(isFocus: $isFocus)
                 .opacity(isInteracting ? 0.2 : 1)
                 .focused($isFocus)
         }
