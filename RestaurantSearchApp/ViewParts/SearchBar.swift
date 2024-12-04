@@ -16,7 +16,7 @@ struct SearchBar: View {
         HStack(spacing: 24) {
             Image(systemName: "location.magnifyingglass")
             
-            TextField("レストランを検索", text: $searchText)
+            TextField("お店の名前を検索", text: $searchText)
             
             // 検索文字が空ではない場合は、クリアボタンを表示
             if !searchText.isEmpty {
