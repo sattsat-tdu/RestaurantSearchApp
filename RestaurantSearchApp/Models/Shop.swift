@@ -10,12 +10,13 @@ struct ShopsResponse: Decodable {
     let results: Results
 }
 
-struct Results: Decodable {
+struct Results: Decodable, Hashable {
+    // プロパティ
     let results_available: Int
     let shop: [Shop]
 }
 
-struct Shop: Decodable {
+struct Shop: Decodable, Hashable {
     let id: String
     let name: String
     let logo_image: String

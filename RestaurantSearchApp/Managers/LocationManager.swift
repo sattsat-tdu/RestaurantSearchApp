@@ -15,7 +15,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     
     override init() {
-        self.authorizationStatus = CLLocationManager().authorizationStatus
+        authorizationStatus = locationManager.authorizationStatus
         super.init()
         locationManager.delegate = self
     }
