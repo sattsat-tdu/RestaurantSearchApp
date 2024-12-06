@@ -13,7 +13,12 @@ struct ShopsResponse: Decodable {
 struct Results: Decodable, Hashable {
     // プロパティ
     let results_available: Int
-    let shop: [Shop]
+    let shops: [Shop]
+    
+    enum CodingKeys: String, CodingKey {
+        case results_available
+        case shops = "shop"
+    }
 }
 
 struct Shop: Decodable, Hashable {
@@ -24,4 +29,8 @@ struct Shop: Decodable, Hashable {
     let station_name: String
     let lat: Double
     let lng: Double
+    let capacity: Int
+    let mobile_access: String
+    let open: String
+    let close: String
 }
