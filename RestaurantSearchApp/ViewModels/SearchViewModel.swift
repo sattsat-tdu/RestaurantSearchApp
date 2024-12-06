@@ -49,9 +49,8 @@ final class SearchViewModel: ObservableObject {
             )
             switch result {
             case .success(let response):
-                print("成功!: \(response.results.results_available)件ヒットしました！")
-                for shop in response.results.shop {
-                    print(shop.name)
+                for shop in response.results.shops {
+                    print("デバック: \(shop.name)")
                 }
                 navigationPath.append(NavigationDestination.shopListView(response.results))
             case .failure(let failure):
