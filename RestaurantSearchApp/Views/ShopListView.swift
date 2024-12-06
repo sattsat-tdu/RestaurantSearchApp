@@ -17,7 +17,7 @@ struct ShopListView: View {
         GridItem(.flexible())
     ]
     
-    private let spacing: CGFloat = 16
+    private let spacing: CGFloat = 8
     
     init(results: Results) {
         self.results = results

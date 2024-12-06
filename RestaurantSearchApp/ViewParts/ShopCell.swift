@@ -7,16 +7,32 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ShopCell: View {
     
     let shop: Shop
     
+    var shopImage: String {
+        return shop.photo.mobile.large
+    }
+    
+    private let imageSize: CGFloat = 200
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Rectangle()
-                .fill(.red)
-                .frame(width: 128, height: 128)
+            Color.clear
+                .aspectRatio(contentMode: .fill)
+                .overlay(
+                    KFImage(URL(string: shopImage))
+                        .placeholder {
+                            ProgressView()
+                        }
+                        .resizable()
+                        .scaledToFill()
+                )
+                .clipped()
+            
             VStack(alignment: .leading, spacing: 8) {
                 Text(shop.name)
                     .fontWeight(.semibold)
@@ -36,21 +52,4 @@ struct ShopCell: View {
         .clipShape(.rect(cornerRadius: 8))
         .frame(maxWidth: .infinity)
     }
-}
-
-#Preview {
-    
-    ShopCell(shop: Shop(
-        id: "1234",
-        name: "店の名前",
-        logo_image: "https://source.unsplash.com/random/300x200",
-        address: "千代田区丸の内１丁目",
-        station_name: "東京",
-        lat: 0.0000,
-        lng: 0.0000,
-        capacity: 356,
-        mobile_access: "東京駅より徒歩5分",
-        open: "月〜金",
-        close: "土日")
-    )
 }
