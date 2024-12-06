@@ -12,6 +12,13 @@ struct ShopListView: View {
     
     let results: Results
     
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    private let spacing: CGFloat = 16
+    
     init(results: Results) {
         self.results = results
     }
@@ -19,7 +26,23 @@ struct ShopListView: View {
     var body: some View {
         VStack {
             if results.results_available > 0 {
-                
+                ScrollView {
+                    
+                    Text("\(results.results_available)件ヒットしました！")
+                    
+                    Divider()
+                    
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(results.shops, id: \.self) { shop in
+                            NavigationLink(destination: EmptyView(),
+                                           label: {
+                                ShopCell(shop: shop)
+                            })
+                            .padding(.horizontal, spacing / 2)
+                        }
+                    }
+                    .padding()
+                }
             } else {
                 VStack {
                     Image(systemName: "house.slash")
@@ -42,5 +65,5 @@ struct ShopListView: View {
 }
 
 #Preview {
-    ShopListView(results: Results(results_available: 0, shop: []))
+    ShopListView(results: Results(results_available: 0, shops: []))
 }
