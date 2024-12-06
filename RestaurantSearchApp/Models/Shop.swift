@@ -31,6 +31,22 @@ struct Shop: Decodable, Hashable {
     let lng: Double
     let capacity: Int
     let mobile_access: String
+    let photo: Photo
     let open: String
     let close: String
+}
+
+struct Photo: Decodable, Hashable {
+    let pc: PhotoSize
+    let mobile: PhotoSize
+}
+
+struct PhotoSize: Decodable, Hashable {
+    let large: String
+    let small: String
+
+    enum CodingKeys: String, CodingKey {
+        case large = "l"
+        case small = "s"
+    }
 }
