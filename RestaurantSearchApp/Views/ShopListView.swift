@@ -21,10 +21,23 @@ struct ShopListView: View {
             if results.results_available > 0 {
                 
             } else {
-                
+                VStack {
+                    Image(systemName: "house.slash")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 128)
+                    
+                    Text("レストランが見つかりません")
+                        .font(.headline)
+                    
+                    Label("検索範囲を広げてみてください",
+                          systemImage: "lightbulb.max.fill")
+                    .font(.callout)
+                }
+                .foregroundStyle(.secondary)
             }
-            Text("\(results.results_available)件ヒットしました！")
         }
+        .navigationTitle("検索結果")
     }
 }
 
