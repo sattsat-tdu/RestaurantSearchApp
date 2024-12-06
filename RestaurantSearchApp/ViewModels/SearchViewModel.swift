@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+enum NavigationDestination: Hashable {
+    case shopListView(Results)
+}
+
 enum SearchRange: Int, CaseIterable {
     case d300 = 1
     case d500 = 2
@@ -29,9 +33,9 @@ enum SearchRange: Int, CaseIterable {
 
 final class SearchViewModel: ObservableObject {
     
-    @Published var searchText: String = ""
-    //range設定
-    @Published var selectedRange: SearchRange = .d1000
+    @Published var searchText: String = ""  //keywordクエリー
+    @Published var selectedRange: SearchRange = .d1000  //rangeクエリー
+    @Published var navigationPath = NavigationPath()
     
     @MainActor
     func fetchNearMeRestaurants(lat: Double?, lng: Double?) {
@@ -49,6 +53,7 @@ final class SearchViewModel: ObservableObject {
                 for shop in response.results.shop {
                     print(shop.name)
                 }
+                navigationPath.append(NavigationDestination.shopListView(response.results))
             case .failure(let failure):
                 print("失敗！\(failure.localizedDescription)")
             }

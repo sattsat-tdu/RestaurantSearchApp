@@ -1,9 +1,9 @@
 //
 //  HomeView.swift
 //  RestaurantSearchApp
-//  
+//
 //  Created by SATTSAT on 2024/12/02
-//  
+//
 //
 
 import SwiftUI
@@ -15,21 +15,27 @@ struct HomeView: View {
     @State private var position: MapCameraPosition =
         .userLocation(fallback: .automatic)
     @State private var isInteracting = false
-    @FocusState var isFocus: Bool
+    
+    @StateObject private var viewModel = SearchViewModel()
+    @EnvironmentObject var manager: LocationManager
+    
     
     var body: some View {
-        ZStack {
-            
-            mapView
-            if isFocus {
-                Color.black.opacity(0.7).edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        isFocus = false // 背景タップでキーボードを閉じる
-                    }
+        NavigationStack(path: $viewModel.navigationPath) {
+            ZStack {
+                
+                mapView
+                
+                SearchView(viewModel: viewModel)
+                    .opacity(isInteracting ? 0.2 : 1)
             }
-            SearchView(isFocus: $isFocus)
-                .opacity(isInteracting ? 0.2 : 1)
-                .focused($isFocus)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .navigationDestination(for: NavigationDestination.self) { des in
+                if case .shopListView(let results) = des {
+                    ShopListView(results: results)
+                }
+            }
+            .navigationBarHidden(true)
         }
     }
     
