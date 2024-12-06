@@ -15,7 +15,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     
     override init() {
-        self.authorizationStatus = CLLocationManager().authorizationStatus
+        authorizationStatus = locationManager.authorizationStatus
         super.init()
         locationManager.delegate = self
     }
@@ -32,6 +32,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         default:
             fatalError("予期せぬ状態に遷移しました: authorizationStatus = \(authorizationStatus)")
         }
+    }
+    
+    // ユーザーの現在位置を緯度と経度で返す
+    func getUserLocation() -> (lat: Double, lng: Double)? {
+        guard let location = locationManager.location else {
+            return nil
+        }
+        return (lat: location.coordinate.latitude, lng: location.coordinate.longitude)
     }
     
     //権限を監視

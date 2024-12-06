@@ -1,9 +1,9 @@
 //
 //  HomeView.swift
 //  RestaurantSearchApp
-//  
+//
 //  Created by SATTSAT on 2024/12/02
-//  
+//
 //
 
 import SwiftUI
@@ -15,29 +15,27 @@ struct HomeView: View {
     @State private var position: MapCameraPosition =
         .userLocation(fallback: .automatic)
     @State private var isInteracting = false
-    @State private var searchText: String = ""
-    @FocusState var isFocus: Bool
+    
+    @StateObject private var viewModel = SearchViewModel()
+    @EnvironmentObject var manager: LocationManager
+    
     
     var body: some View {
-        ZStack {
-            if isFocus {
-                Color.gray.edgesIgnoringSafeArea(.all)
-            } else {
-                mapView
-                    .onAppear {
-                        position = .userLocation(fallback: .automatic)
-                    }
-            }
-            
-            VStack {
-                SearchBar(searchText: $searchText)
-                    .opacity(isInteracting ? 0.2 : 1)
-                    .focused($isFocus)
-                    .submitLabel(.search)
+        NavigationStack(path: $viewModel.navigationPath) {
+            ZStack {
                 
-                Spacer()
+                mapView
+                
+                SearchView(viewModel: viewModel)
+                    .opacity(isInteracting ? 0.2 : 1)
             }
-            .padding()
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+            .navigationDestination(for: NavigationDestination.self) { des in
+                if case .shopListView(let results) = des {
+                    ShopListView(results: results)
+                }
+            }
+            .navigationBarHidden(true)
         }
     }
     
