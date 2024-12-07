@@ -34,7 +34,15 @@ struct Shop: Decodable, Hashable {
     let photo: Photo
     let open: String
     let close: String
+    let `catch`: String
+    let urls: Urls
 }
+
+
+struct Urls: Decodable, Hashable {
+    let pc: String
+}
+
 
 struct Photo: Decodable, Hashable {
     let pc: PhotoSize

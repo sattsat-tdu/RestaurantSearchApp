@@ -34,7 +34,7 @@ struct ShopListView: View {
                     
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(results.shops, id: \.self) { shop in
-                            NavigationLink(destination: EmptyView(),
+                            NavigationLink(destination: ShopDetailView(shop: shop),
                                            label: {
                                 ShopCell(shop: shop)
                             })

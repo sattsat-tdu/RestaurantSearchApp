@@ -39,6 +39,7 @@ final class SearchViewModel: ObservableObject {
     
     @MainActor
     func fetchNearMeRestaurants(lat: Double?, lng: Double?) {
+        UIApplication.showLoading()
         Task {
             let result = await GourmetAPIManager.shared.fetchRestaurants(
                 searchQuery: SearchQuery(
@@ -53,8 +54,31 @@ final class SearchViewModel: ObservableObject {
                     print("デバック: \(shop.name)")
                 }
                 navigationPath.append(NavigationDestination.shopListView(response.results))
+                UIApplication.hideLoading()
             case .failure(let failure):
                 print("失敗！\(failure.localizedDescription)")
+                UIApplication.hideLoading()
+            }
+        }
+    }
+    
+    //通常のキーワード指定検索
+    @MainActor
+    func fetchRestaurants() {
+        UIApplication.showLoading()
+        Task {
+            let result = await GourmetAPIManager.shared.fetchRestaurants(
+                searchQuery: SearchQuery(
+                    keyword: searchText
+                )
+            )
+            switch result {
+            case .success(let response):
+                navigationPath.append(NavigationDestination.shopListView(response.results))
+                UIApplication.hideLoading()
+            case .failure(let failure):
+                print("失敗！\(failure.localizedDescription)")
+                UIApplication.hideLoading()
             }
         }
     }
