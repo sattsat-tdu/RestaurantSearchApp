@@ -29,7 +29,7 @@ struct SearchView: View {
                     .focused($isFocus)
                     .submitLabel(.search)
                     .onSubmit {
-                        print("ここにkeyword検索処理")
+                        viewModel.fetchRestaurants()
                     }
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
