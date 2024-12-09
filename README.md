@@ -34,7 +34,7 @@ iOS 17.0以上
 
 |起動画面|認証画面|認証拒否画面|
 |---|---|---|
-|<img src="IMG_3342.PNG" alt="alt text" width="200">|<img src="IMG_3343.PNG" alt="alt text" width="200">|<img src="IMG_3344.PNG" alt="alt text" width="200">|
+|<img src="screenshots/IMG_3342.PNG" alt="alt text" width="200">|<img src="screenshots/IMG_3343.PNG" alt="alt text" width="200">|<img src="screenshots/IMG_3344.PNG" alt="alt text" width="200">|
 
 <!-- <img src="IMG_3342.PNG" alt="alt text" width="200"> -->
 
@@ -45,7 +45,7 @@ iOS 17.0以上
 
 |通常時|スクロール時|
 |---|---|
-|<img src="IMG_3345.PNG" alt="alt text" width="200">|<img src="IMG_3346.PNG" alt="alt text" width="200">|
+|<img src="screenshots/IMG_3345.PNG" alt="alt text" width="200">|<img src="screenshots/IMG_3346.PNG" alt="alt text" width="200">|
 
 - 検索画面 ：検索範囲 or キーワードを指定してレストランを検索する。
     - 検索バー: キーワードをリクエストに、APIへ通信
@@ -54,14 +54,14 @@ iOS 17.0以上
 
 |検索画面|
 |---|
-|<img src="IMG_3347.PNG" alt="alt text" width="200">|
+|<img src="screenshots/IMG_3347.PNG" alt="alt text" width="200">|
 
 - 一覧画面 ：検索結果のレストランを2行で一覧表示する。
 検索結果がヒットしない場合にも対応
 
 |検索結果あり|検索結果なし|
 |---|---|
-|<img src="IMG_3348.PNG" alt="alt text" width="200">|<img src="IMG_3349.PNG" alt="alt text" width="200">|
+|<img src="screenshots/IMG_3348.PNG" alt="alt text" width="200">|<img src="screenshots/IMG_3349.PNG" alt="alt text" width="200">|
 
 - レストラン詳細画面 ：画像、住所、マップなどのレストランの情報を表示する。
 画像や、キャッチフレーズを大きく表示し、ユーザーに的確にお店情報を伝える。
@@ -85,7 +85,7 @@ extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
 
 |レストラン詳細画面|
 |---|
-|<img src="IMG_3350.PNG" alt="alt text" width="200"><img src="IMG_3351.PNG" alt="alt text" width="200">|
+|<img src="screenshots/IMG_3350.PNG" alt="alt text" width="200"><img src="screenshots/IMG_3351.PNG" alt="alt text" width="200">|
 
 ### 使用しているAPI,SDK,ライブラリなど
 - ホットペッパーグルメサーチAPI
@@ -108,4 +108,4 @@ extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
 - コードの書き方
 
 ### 自己評価
-与えられた最低条件を達成することができて一安心でした。ホットペッパーグルメAPIと、MapKitをうまく組み合わせて実装できたのが自分で評価できるポイントでした。ただ、検索バーを押した時のフェードアニメーションを実装することができなかったのが残念でした。
+与えられた最低条件を達成することができて一安心でした。ホットペッパーグルメAPIと、MapKitをうまく組み合わせて実装できたのが自分で評価できるポイントでした。ただ、多くのアプリで実装されている検索バーを押した時のフェードアニメーションを実装することができなかったのが残念でした。
